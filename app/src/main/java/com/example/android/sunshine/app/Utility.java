@@ -169,7 +169,7 @@ public class Utility {
             direction = "SW";
         } else if (degrees >= 247.5 && degrees < 292.5) {
             direction = "W";
-        } else if (degrees >= 292.5 || degrees < 22.5) {
+        } else if (degrees >= 292.5 && degrees < 337.5) {
             direction = "NW";
         }
         return String.format(context.getString(windFormat), windSpeed, direction);
