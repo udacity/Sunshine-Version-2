@@ -180,8 +180,6 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateWeather() {
-        //String location = Utility.getPreferredLocation(getActivity());
-        //new FetchWeatherTask(getActivity()).execute(location);
         SunshineSyncAdapter.syncImmediately(getActivity());
     }
 
