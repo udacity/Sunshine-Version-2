@@ -30,6 +30,8 @@
     <!-- Default postal code for location preference [CHAR LIMIT=NONE] -->
     <string name="pref_location_default" translatable="false">94043</string>
 
+    <!-- Strings for formatting weather-related data -->
+
     <!-- Label for the temperature units preference [CHAR LIMIT=30] -->
     <string name="pref_units_label">Temperature Units</string>
 
@@ -49,14 +51,14 @@
     <string name="pref_units_imperial" translatable="false">imperial</string>
 
 
-    <!-- Date label when displaying today's weather forecast [CHAR LIMIT=20] -->
+    <!-- Language-specific constants -->
     <string name="today">Today</string>
 
-    <!-- Date label when displaying tomorrow's weather forecast [CHAR LIMIT=20] -->
+    <!-- For labelling tomorrow's forecast [CHAR LIMIT=15] -->
     <string name="tomorrow">Tomorrow</string>
 
-    <!-- Date format for displaying day of week and date (i.e. Mon Jun 1) [CHAR LIMIT=20] -->
-    <string name="format_full_friendly_date"><xliff:g id="day">%1$s</xliff:g>, <xliff:g id="date">%2$s</xliff:g></string>
+    <!-- Date format [CHAR LIMIT=NONE] -->
+    <string name="format_full_friendly_date"><xliff:g id="month">%1$s</xliff:g>, <xliff:g id="day">%2$s</xliff:g></string>
 
     <!-- Strings for formatting weather-related data -->
     <!-- Temperature format [CHAR LIMIT=5 -->
