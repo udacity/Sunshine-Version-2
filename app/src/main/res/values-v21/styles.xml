@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Settings activity theme. -->
-    <style name="SettingsTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
-        <item name="android:colorPrimary">@color/sunshine_blue</item>
-        <item name="android:colorPrimaryDark">@color/sunshine_dark_blue</item>
-    </style>
-
-</resources>
