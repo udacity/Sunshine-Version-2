@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings activity theme. -->
+    <style name="SettingsTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/ActionBar.V14.Sunshine.NoTitle</item>
+    </style>
+
+    <!-- Settings activity action bar styles -->
+    <style name="ActionBar.V14.Sunshine.NoTitle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/sunshine_blue</item>
+        <item name="android:height">56dp</item>
+    </style>
+</resources>
