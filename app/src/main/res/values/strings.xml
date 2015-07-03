@@ -94,4 +94,7 @@
     <!-- Strings related to Notification preference -->
     <string name="pref_last_notification">last_notification</string>
 
+    <!-- SyncAdapter related -->
+    <string name="empty_weather">No Weather Information Available</string>
+
 </resources>

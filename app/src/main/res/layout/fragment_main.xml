@@ -9,4 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null" />
+    <TextView
+        android:id="@+id/textview_empty_forecast"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/empty_weather"/>
 </FrameLayout>
