@@ -16,6 +16,7 @@
 package com.example.android.sunshine.app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,21 +37,25 @@ import android.widget.TextView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
+import com.example.android.sunshine.app.util.LocationStatusPreferences;
 
 /**
  * Encapsulates fetching the forecast and displaying it as a {@link ListView} layout.
  */
 public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final String LOG_TAG = ForecastFragment.class.getSimpleName();
-    private ForecastAdapter mForecastAdapter;
-
-    private ListView mListView;
-    private TextView emptyWeatherView;
-    private int mPosition = ListView.INVALID_POSITION;
-    private boolean mUseTodayLayout;
-
+    // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
+    // must change.
+    static final int COL_WEATHER_ID = 0;
+    static final int COL_WEATHER_DATE = 1;
+    static final int COL_WEATHER_DESC = 2;
+    static final int COL_WEATHER_MAX_TEMP = 3;
+    static final int COL_WEATHER_MIN_TEMP = 4;
+    static final int COL_LOCATION_SETTING = 5;
+    static final int COL_WEATHER_CONDITION_ID = 6;
+    static final int COL_COORD_LAT = 7;
+    static final int COL_COORD_LONG = 8;
     private static final String SELECTED_KEY = "selected_position";
-
     private static final int FORECAST_LOADER = 0;
     // For the forecast view we're showing only a small subset of the stored data.
     // Specify the columns we need.
@@ -71,30 +76,19 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             WeatherContract.LocationEntry.COLUMN_COORD_LAT,
             WeatherContract.LocationEntry.COLUMN_COORD_LONG
     };
+    private ForecastAdapter mForecastAdapter;
+    private ListView mListView;
+    private TextView emptyWeatherView;
+    SharedPreferences.OnSharedPreferenceChangeListener locationStatusListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+            if (key.equals(LocationStatusPreferences.STATUS)) {
+                updateEmptyView();
 
-    // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
-    // must change.
-    static final int COL_WEATHER_ID = 0;
-    static final int COL_WEATHER_DATE = 1;
-    static final int COL_WEATHER_DESC = 2;
-    static final int COL_WEATHER_MAX_TEMP = 3;
-    static final int COL_WEATHER_MIN_TEMP = 4;
-    static final int COL_LOCATION_SETTING = 5;
-    static final int COL_WEATHER_CONDITION_ID = 6;
-    static final int COL_COORD_LAT = 7;
-    static final int COL_COORD_LONG = 8;
-
-    /**
-     * A callback interface that all activities containing this fragment must
-     * implement. This mechanism allows activities to be notified of item
-     * selections.
-     */
-    public interface Callback {
-        /**
-         * DetailFragmentCallback for when an item has been selected.
-         */
-        public void onItemSelected(Uri dateUri);
-    }
+            }
+        }
+    };
+    private int mPosition = ListView.INVALID_POSITION;
+    private boolean mUseTodayLayout;
 
     public ForecastFragment() {
     }
@@ -264,7 +258,45 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             // to, do so now.
             mListView.smoothScrollToPosition(mPosition);
         }
+        updateEmptyView();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerSharedListener();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterSharedListener();
+    }
+
+    private void updateEmptyView() {
+        if (mForecastAdapter.getCount() == 0) {
+            int noDataDescriptionResourceId = R.string.empty_weather;
+            @SunshineSyncAdapter.LocationStatus int locationStatus = LocationStatusPreferences.getLocationStatus(getActivity());
+            switch (locationStatus) {
+                case SunshineSyncAdapter.LOCATION_STATUS_SERVER_DOWN:
+                    noDataDescriptionResourceId = R.string.server_down;
+                    break;
+                case SunshineSyncAdapter.LOCATION_STATUS_SERVER_INVALID:
+                    noDataDescriptionResourceId = R.string.server_invalid_error;
+                    break;
+                case SunshineSyncAdapter.LOCATION_STATUS_UNKNOWN:
+                    noDataDescriptionResourceId = R.string.server_unknown_error;
+                    break;
+                case SunshineSyncAdapter.LOCATION_STATUS_INVALID:
+                    noDataDescriptionResourceId = R.string.empty_forecast_list_invalid_location;
+                    break;
+            }
+            if (noDataDescriptionResourceId != 0) {
+                emptyWeatherView.setText(noDataDescriptionResourceId);
+            }
+        }
+    }
+
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
@@ -276,5 +308,27 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         if (mForecastAdapter != null) {
             mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
         }
+    }
+
+    private void registerSharedListener() {
+        SharedPreferences preferences = LocationStatusPreferences.getInstance(getActivity());
+        preferences.registerOnSharedPreferenceChangeListener(locationStatusListener);
+    }
+
+    private void unregisterSharedListener() {
+        SharedPreferences preferences = LocationStatusPreferences.getInstance(getActivity());
+        preferences.unregisterOnSharedPreferenceChangeListener(locationStatusListener);
+    }
+
+    /**
+     * A callback interface that all activities containing this fragment must
+     * implement. This mechanism allows activities to be notified of item
+     * selections.
+     */
+    public interface Callback {
+        /**
+         * DetailFragmentCallback for when an item has been selected.
+         */
+        void onItemSelected(Uri dateUri);
     }
 }
