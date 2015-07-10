@@ -17,7 +17,6 @@ import android.content.SyncResult;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +32,7 @@ import com.example.android.sunshine.app.MainActivity;
 import com.example.android.sunshine.app.R;
 import com.example.android.sunshine.app.Utility;
 import com.example.android.sunshine.app.data.WeatherContract;
+import com.example.android.sunshine.app.util.ImageUtil;
 import com.example.android.sunshine.app.util.LocationStatusPreferences;
 
 import org.json.JSONArray;
@@ -458,8 +458,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
                     int iconId = Utility.getIconResourceForWeatherCondition(weatherId);
                     Resources resources = context.getResources();
-                    Bitmap largeIcon = BitmapFactory.decodeResource(resources,
-                            Utility.getArtResourceForWeatherCondition(weatherId));
+                    Bitmap largeIcon = ImageUtil.getLargeBitmap(getContext(), weatherId);
                     String title = context.getString(R.string.app_name);
 
                     // Define the text of the forecast.
