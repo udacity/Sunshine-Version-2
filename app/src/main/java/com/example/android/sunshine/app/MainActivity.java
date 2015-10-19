@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private final String FORECASTFRAGMENT_TAG = "FFTAG";
 
-    private String mLocation;
+    private static String mLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
