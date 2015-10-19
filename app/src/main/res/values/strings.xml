@@ -5,4 +5,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="date">Today, June 24</string>
+    <string name="max_degree">21°</string>
+    <string name="min_degree">8°</string>
+    <string name="weather">Cloudy</string>
+
 </resources>
