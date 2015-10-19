@@ -22,7 +22,7 @@ public class ForecastAdapter extends CursorAdapter {
     /**
      * Prepare the weather high/lows for presentation.
      */
-    private String formatHighLows(double high, double low) {
+    private String formatHighLows(double high, double low, Context mContext) {
         boolean isMetric = Utility.isMetric(mContext);
         String highLowStr = Utility.formatTemperature(high, isMetric) + "/" + Utility.formatTemperature(low, isMetric);
         return highLowStr;
@@ -32,7 +32,7 @@ public class ForecastAdapter extends CursorAdapter {
         This is ported from FetchWeatherTask --- but now we go straight from the cursor to the
         string.
      */
-    private String convertCursorRowToUXFormat(Cursor cursor) {
+    private String convertCursorRowToUXFormat(Cursor cursor, Context context) {
         // get row indices for our cursor
         int idx_max_temp = cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MAX_TEMP);
         int idx_min_temp = cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MIN_TEMP);
@@ -41,7 +41,8 @@ public class ForecastAdapter extends CursorAdapter {
 
         String highAndLow = formatHighLows(
                 cursor.getDouble(idx_max_temp),
-                cursor.getDouble(idx_min_temp));
+                cursor.getDouble(idx_min_temp),
+                context);
 
         return Utility.formatDate(cursor.getLong(idx_date)) +
                 " - " + cursor.getString(idx_short_desc) +
@@ -67,6 +68,6 @@ public class ForecastAdapter extends CursorAdapter {
         // we'll keep the UI functional with a simple (and slow!) binding.
 
         TextView tv = (TextView)view;
-        tv.setText(convertCursorRowToUXFormat(cursor));
+        tv.setText(convertCursorRowToUXFormat(cursor, context));
     }
 }
