@@ -106,6 +106,12 @@
                 android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
                 android:textAppearance="?android:textAppearanceLarge" />
+
+            <com.example.android.sunshine.app.Compass
+                android:id="@+id/mycompass"
+                android:layout_marginLeft="5dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
