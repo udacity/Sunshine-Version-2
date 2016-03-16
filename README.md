@@ -1,28 +1,58 @@
-Sunshine
-========
+# Sunshine Weather App
 
-Sunshine is the companion Android app for the Udacity course [Developing Android Apps: Android Fundamentals](https://www.udacity.com/course/ud853).
+## Introduction
 
-Take the course to find out how to build this app a step at a time, and eventually create your own Android App!
+I learned to build this Android app in the Udacity course [Developing Android Apps: Android Fundamentals](https://www.udacity.com/course/ud853). This course is amazing!
 
-This is the second version of the Sunshine code. The repository has been updated on:
+<img src="https://github.com/ymittal/SunshineWeatherApp/blob/sunshine_master/Screenshots/Screenshot_2015-12-26-03-44-39.png" width="270" height="480">
 
-* **October 18th, 2015** - Updated to support use of the openweathermap.org API key.
-* **February 13th, 2015** - Major update
-* February 25, 2015 - Minor bug fixes
-* March 4th, 2015 - Minor bug fixes
+## Functionality
 
-### Open Weather Map API Key is required.
+The weather application fetches data from Open Weather Map API. You can modify `SYNC_INTERVAL` in `SunshineSyncService.java` to change how frequently the application checks for weather updates. Following is a sample detailed screen (I won't lie but it hasn't snowed even once so far):
 
-In order for the Sunshine app to function properly as of October 18th, 2015 an API key for openweathermap.org must be included with the build.
+<img src="https://github.com/ymittal/SunshineWeatherApp/blob/sunshine_master/Screenshots/Screenshot_2015-12-26-03-44-48.png" width="270" height="480">
 
-We recommend that each student obtain a key via the following [instructions](http://openweathermap.org/appid#use), and include the unique key for the build by adding the following line to [USER_HOME]/.gradle/gradle.properties
+You can choose to change the location or measurement units. There is also a notification toggle for people who would like to receive a notification every day. Who opens a weather app anyway, right?
 
-`MyOpenWeatherMapApiKey="<UNIQUE_API_KEY">`
+<img src="https://github.com/ymittal/SunshineWeatherApp/blob/sunshine_master/Screenshots/Screenshot_2015-12-26-03-45-56.png" width="270" height="480">
 
-For help migrating an existing repo (fork or clone prior to 10/18/15), please check out this [guide.](https://docs.google.com/document/d/1e8LXahedBlCW1_dp_FyvQ3ugUAwUBJDuJCoKf3tgNVs/pub?embedded=true) 
 
-========
-For the original version, please go [here](https://github.com/udacity/Sunshine).
+**Add Open Weather Map API Key**
 
-A changelog for the course can be found [here](https://docs.google.com/a/knowlabs.com/document/d/193xJb_OpcNCqgquMhxPrMh05IEYFXQqt0S6-6YK8gBw/pub).
+All Open Weather Map API calls must have a unique key. You can obtain your key [here](http://openweathermap.org/appid#use). To reflect changes, you need to update `/app/build.gradle`
+
+For someone with API key as `a1234567891011121314151617181920`, `/app/build.gradle` should look as follows: 
+
+	apply plugin: 'com.android.application'
+
+	android {
+	    compileSdkVersion 21
+	    buildToolsVersion "21.1.2"
+
+	    defaultConfig {
+	        applicationId "com.example.android.sunshine.app"
+	        minSdkVersion 10
+	        targetSdkVersion 21
+	        versionCode 1
+	        versionName "1.0"
+	    }
+	    buildTypes {
+	        release {
+	            minifyEnabled false
+	            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+	        }
+	    }
+	    buildTypes.each {
+	        it.buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', "\"a1234567891011121314151617181920\""
+	    }
+	}
+
+	dependencies {
+	    compile fileTree(dir: 'libs', include: ['*.jar'])
+	    compile 'com.android.support:appcompat-v7:21.0.2'
+	}
+
+# Additional Information
+
+* For the original repository, please click [here](https://github.com/udacity/Sunshine-Version-2).
+* Check the project [license](https://github.com/ymittal/SunshineWeatherApp/blob/sunshine_master/LICENSE).
