@@ -4,17 +4,17 @@
 
 I learned to build this Android app in the Udacity course [Developing Android Apps: Android Fundamentals](https://www.udacity.com/course/ud853). This course is amazing!
 
-![Main Screen](https://github.com/ymittal/SunshineWeatherApp/blob/sunshine_master/Screenshots/Screenshot_2015-12-26-03-44-39.png)
+<img src="https://github.com/ymittal/SunshineWeatherApp/blob/sunshine_master/Screenshots/Screenshot_2015-12-26-03-44-39.png" width="270" height="480">
 
 ## Functionality
 
 The weather application fetches data from Open Weather Map API. You can modify `SYNC_INTERVAL` in `SunshineSyncService.java` to change how frequently the application checks for weather updates. Following is a sample detailed screen (I won't lie but it hasn't snowed even once so far):
 
-![Detail Screen](https://github.com/ymittal/SunshineWeatherApp/blob/sunshine_master/Screenshots/Screenshot_2015-12-26-03-44-48.png)
+<img src="https://github.com/ymittal/SunshineWeatherApp/blob/sunshine_master/Screenshots/Screenshot_2015-12-26-03-44-48.png" width="270" height="480">
 
 You can choose to change the location or measurement units. There is also a notification toggle for people who would like to receive a notification every day. Who opens a weather app anyway, right?
 
-![Settings Menu](https://github.com/ymittal/SunshineWeatherApp/blob/sunshine_master/Screenshots/Screenshot_2015-12-26-03-45-56.png)
+<img src="https://github.com/ymittal/SunshineWeatherApp/blob/sunshine_master/Screenshots/Screenshot_2015-12-26-03-45-56.png" width="270" height="480">
 
 
 **Add Open Weather Map API Key**
