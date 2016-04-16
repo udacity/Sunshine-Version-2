@@ -135,15 +135,28 @@ public class ForecastFragment extends Fragment {
         }
 
 
-        private String formatHighLows(double high, double low) {
-            long roundedHigh = Math.round(high);
-            long roundedLow = Math.round(low);
+        private String formatHighLows(double high, double low, String units) {
 
-            String highLowStr = roundedHigh + "/" + roundedLow;
-            return highLowStr;
+            if (units.equals("Metric")){
+                long roundedHigh = Math.round(high);
+                long roundedLow = Math.round(low);
+
+                String highLowStr = roundedHigh + "/" + roundedLow;
+                return highLowStr;
+            }
+
+            else {
+                long roundedHigh = Math.round(high * 1.8 + 32) ;
+                long roundedLow = Math.round(low * 1.8 + 32);
+
+                String highLowStr = roundedHigh + "/" + roundedLow;
+                return highLowStr;
+            }
+
+
         }
 
-        private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
+        private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays, String units)
                 throws JSONException {
 
             // These are the names of the JSON objects that need to be extracted.
@@ -185,7 +198,7 @@ public class ForecastFragment extends Fragment {
                 double high = temperatureObject.getDouble(OWM_MAX);
                 double low = temperatureObject.getDouble(OWM_MIN);
 
-                highAndLow = formatHighLows(high, low);
+                highAndLow = formatHighLows(high, low, units);
                 resultStrs[i] = day + " - " + description + " - " + highAndLow;
             }
 
@@ -229,6 +242,8 @@ public class ForecastFragment extends Fragment {
 
                 URL url = new URL(builtUri.toString());
 
+                // Log.v(LOG_TAG, builtUri.toString());
+
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
@@ -270,7 +285,7 @@ public class ForecastFragment extends Fragment {
             }
 
             try {
-                return getWeatherDataFromJson(forecastJsonStr, numDays);
+                return getWeatherDataFromJson(forecastJsonStr, numDays, params[1]);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
