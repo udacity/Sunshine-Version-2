@@ -1,9 +1,9 @@
 Sunshine
 ========
 
-Sunshine is the companion Android app for the Udacity course [Developing Android Apps: Android Fundamentals](https://www.udacity.com/course/ud853).
+Sunshine is the companion Android app created in stages for the Udacity course [Developing Android Apps: Android Fundamentals](https://www.udacity.com/course/ud853).
 
-Take the course to find out how to build this app a step at a time, and eventually create your own Android App!
+Take the course to find out how to build this app one step at a time, and eventually create your own Android App!
 
 This is the second version of the Sunshine code. The repository has been updated on:
 
@@ -20,7 +20,7 @@ We recommend that each student obtain a key via the following [instructions](htt
 
 `MyOpenWeatherMapApiKey="<UNIQUE_API_KEY">`
 
-For help migrating an existing repo (fork or clone prior to 10/18/15), please check out this [guide.](https://docs.google.com/document/d/1e8LXahedBlCW1_dp_FyvQ3ugUAwUBJDuJCoKf3tgNVs/pub?embedded=true) 
+For help migrating an existing repo (fork or clone prior to 10/18/15), please check this out [guide.](https://docs.google.com/document/d/1e8LXahedBlCW1_dp_FyvQ3ugUAwUBJDuJCoKf3tgNVs/pub?embedded=true) 
 
 ========
 For the original version, please go [here](https://github.com/udacity/Sunshine).
