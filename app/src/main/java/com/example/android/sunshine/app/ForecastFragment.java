@@ -50,7 +50,7 @@ import java.util.List;
  */
 public class ForecastFragment extends Fragment {
 
-    private ArrayAdapter<String> mForecastAdapter;
+    public ArrayAdapter<String> mForecastAdapter;
 
     public ForecastFragment() {
     }
