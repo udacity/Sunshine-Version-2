@@ -66,7 +66,7 @@ public class WeatherContract {
         // Humidity is stored as a float representing percentage
         public static final String COLUMN_HUMIDITY = "humidity";
 
-        // Humidity is stored as a float representing percentage
+        // Pressure is stored as a float representing percentage
         public static final String COLUMN_PRESSURE = "pressure";
 
         // Windspeed is stored as a float representing windspeed  mph
