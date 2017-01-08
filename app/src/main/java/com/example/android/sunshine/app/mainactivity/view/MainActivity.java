@@ -16,9 +16,32 @@
 package com.example.android.sunshine.app.mainactivity.view;
 
 
+import android.content.Context;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
-public class MainActivity extends AppCompatActivity {
+
+import com.example.android.sunshine.app.R;
+
+public class MainActivity extends AppCompatActivity implements MainActivityMVP.RequiredViewOps {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+
+        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public Context getAppContext() {
+        return null;
+    }
+
+    @Override
+    public Context getActivityContext() {
+        return null;
+    }
 }
