@@ -19,20 +19,35 @@ package com.example.android.sunshine.app.mainactivity.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.android.sunshine.app.R;
+import com.example.android.sunshine.app.common.StateMaintainer;
 
 public class MainActivity extends AppCompatActivity implements MainActivityMVP.RequiredViewOps {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
+    public PlaceholderFragment mainFragment ;
+
+
+    // Responsible to maintain the object's integrity
+    // during configurations change
+    private final StateMaintainer mStateMaintainer
+            = new StateMaintainer(MainActivity.class.getName() , getFragmentManager());
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
 
         setContentView(R.layout.activity_main);
+
+        
     }
 
     @Override
@@ -43,5 +58,31 @@ public class MainActivity extends AppCompatActivity implements MainActivityMVP.R
     @Override
     public Context getActivityContext() {
         return null;
+    }
+
+    @Override
+    public PlaceholderFragment getFragment() {
+
+
+        return null;
+    }
+
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+
+    public static class PlaceholderFragment extends Fragment{
+
+        public PlaceholderFragment() {
+
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main , container , false);
+            return rootView;
+        }
     }
 }

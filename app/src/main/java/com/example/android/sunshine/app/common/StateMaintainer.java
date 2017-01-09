@@ -29,9 +29,9 @@ public class StateMaintainer {
     private boolean isRecreating;
 
 
-    public StateMaintainer(String mStateMaintainerTag, WeakReference<FragmentManager> mFragmentManager) {
+    public StateMaintainer(String mStateMaintainerTag, FragmentManager mFragmentManager) {
         this.mStateMaintainerTag = mStateMaintainerTag;
-        this.mFragmentManager = mFragmentManager;
+        this.mFragmentManager = new WeakReference<FragmentManager>(mFragmentManager);
     }
 
 

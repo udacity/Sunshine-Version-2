@@ -3,6 +3,8 @@ package com.example.android.sunshine.app.mainactivity.view;
 
 import android.content.Context;
 
+import java.util.List;
+
 /**
  * Created by vutka bilai on 1/8/17.
  * mail : la4508@gmail.com
@@ -21,5 +23,44 @@ public interface MainActivityMVP {
 
         Context getAppContext();
         Context getActivityContext();
+        MainActivity.PlaceholderFragment getFragment();
+    }
+
+
+    /**
+     * Operations offered to View to communicate with Presenter.
+     * Process user interaction, sends data requests to Model, etc.
+     * (view -> presenter)
+     */
+
+    interface providedPresenterOps{
+
+        void onDestroy(boolean isChangingConfigurations);
+        List<String> getDummyWeather();
+    }
+
+
+    /**
+     * required Presenter operation available
+     * to model (model -> presenter)
+     */
+
+    interface RequiredPresenterOPS{
+        Context getAppContext();
+        Context getActivityContext();
+    }
+
+
+    /**
+     * Operations offered to model to communicate with presenter
+     * Handles all data business logic
+     * (presenter -> model )
+     */
+
+    interface ProvidedModelOps{
+
+        void onDestroy(boolean isChangingConfigurations);
+        List<String> createDummyWeather();
+
     }
 }
