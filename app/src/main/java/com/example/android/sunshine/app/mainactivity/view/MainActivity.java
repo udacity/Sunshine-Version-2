@@ -47,24 +47,30 @@ public class MainActivity extends AppCompatActivity implements MainActivityMVP.R
 
         setContentView(R.layout.activity_main);
 
+        if(savedInstanceState == null){
+            mainFragment = new PlaceholderFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.container , mainFragment)
+                    .commit();
+        }
         
     }
 
     @Override
     public Context getAppContext() {
-        return null;
+        return getApplicationContext();
     }
 
     @Override
     public Context getActivityContext() {
-        return null;
+        return this;
     }
 
     @Override
     public PlaceholderFragment getFragment() {
 
-
-        return null;
+        return mainFragment;
     }
 
 

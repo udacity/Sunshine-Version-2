@@ -2,6 +2,9 @@ package com.example.android.sunshine.app.mainactivity.view;
 
 
 import android.content.Context;
+import android.view.ViewGroup;
+
+import com.example.android.sunshine.app.mainactivity.view.recycler.WeatherViewHolder;
 
 import java.util.List;
 
@@ -37,6 +40,9 @@ public interface MainActivityMVP {
 
         void onDestroy(boolean isChangingConfigurations);
         List<String> getDummyWeather();
+        WeatherViewHolder createViewHolder(ViewGroup parent , int viewType);
+        void onBindViewHolder(WeatherViewHolder holder, int position);
+        int getItemCount();
     }
 
 
