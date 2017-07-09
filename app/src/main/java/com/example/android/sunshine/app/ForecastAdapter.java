@@ -8,19 +8,77 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.util.*;
 
 /**
  * {@link ForecastAdapter} exposes a list of weather forecasts
  * from a {@link Cursor} to a {@link android.widget.ListView}.
  */
-public class ForecastAdapter extends CursorAdapter {
 
+
+
+
+public class ForecastAdapter extends CursorAdapter {
+	
     private static final int VIEW_TYPE_COUNT = 2;
     private static final int VIEW_TYPE_TODAY = 0;
     private static final int VIEW_TYPE_FUTURE_DAY = 1;
 
+     Map<Integer, Nview> map = new HashMap<Integer,Nview>();
+
+        map.put(VIEW_TYPE_TODAY,Nview.VIEW_TYPE_TODAY);
+        map.put(VIEW_TYPE_FUTURE_DAY,Nview.VIEW_TYPE_FUTURE_DAY);
+
+
+    // Map<int, NviewToday> processors = new HashMap<>();
+    // processors.add(VIEW_TYPE_TODAY, new NviewToday());
+    // processors.add(VIEW_TYPE_FUTURE_DAY, new NviewFuture());
+
+
     // Flag to determine if we want to use a separate view for "today".
     private boolean mUseTodayLayout = true;
+
+
+	public enum Nview extends ViewChange{
+
+		VIEW_TYPE_TODAY {
+			@Override
+			public int getLayoutId()
+			{return R.layout.list_item_forecast_today;}
+
+		},
+
+		VIEW_TYPE_FUTURE_DAY {
+			@Override
+			public int getLayoutId()
+			{return R.layout.list_item_forecast;}
+		};
+
+		public abstract int getLayoutId();
+	}
+
+
+	public enum Bview {
+
+		VIEW_TYPE_TODAY {
+			@Override
+			public void setLayoutView()
+			{viewHolder.iconView.setImageResource(Utility.getArtResourceForWeatherCondition(
+                        cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID)));}
+
+		},
+
+		VIEW_TYPE_FUTURE_DAY {
+			@Override
+			public void setLayoutView()
+			{   viewHolder.iconView.setImageResource(Utility.getIconResourceForWeatherCondition(
+                        cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID)));}
+		};
+
+		public abstract void setLayoutView();
+	}
+
+
 
     /**
      * Cache of the children views for a forecast list item.
@@ -31,6 +89,7 @@ public class ForecastAdapter extends CursorAdapter {
         public final TextView descriptionView;
         public final TextView highTempView;
         public final TextView lowTempView;
+
 
         public ViewHolder(View view) {
             iconView = (ImageView) view.findViewById(R.id.list_item_icon);
@@ -45,21 +104,18 @@ public class ForecastAdapter extends CursorAdapter {
         super(context, c, flags);
     }
 
+
+   
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         // Choose the layout type
+        
         int viewType = getItemViewType(cursor.getPosition());
-        int layoutId = -1;
-        switch (viewType) {
-            case VIEW_TYPE_TODAY: {
-                layoutId = R.layout.list_item_forecast_today;
-                break;
-            }
-            case VIEW_TYPE_FUTURE_DAY: {
-                layoutId = R.layout.list_item_forecast;
-                break;
-            }
-        }
+
+       
+        Nview nview=map.get(viewType);
+        
+        int layoutId = nview.getLayoutId();
 
         View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
 
@@ -75,20 +131,11 @@ public class ForecastAdapter extends CursorAdapter {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
         int viewType = getItemViewType(cursor.getPosition());
-        switch (viewType) {
-            case VIEW_TYPE_TODAY: {
-                // Get weather icon
-                viewHolder.iconView.setImageResource(Utility.getArtResourceForWeatherCondition(
-                        cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID)));
-                break;
-            }
-            case VIEW_TYPE_FUTURE_DAY: {
-                // Get weather icon
-                viewHolder.iconView.setImageResource(Utility.getIconResourceForWeatherCondition(
-                        cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID)));
-                break;
-            }
-        }
+        
+       Bview bview=map.get(viewType);
+
+       bview.setLayoutView();
+
 
         // Read date from cursor
         long dateInMillis = cursor.getLong(ForecastFragment.COL_WEATHER_DATE);
