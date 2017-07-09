@@ -25,56 +25,41 @@ public class ForecastAdapter extends CursorAdapter {
     private static final int VIEW_TYPE_FUTURE_DAY = 1;
 
      Map<Integer, Nview> map = new HashMap<Integer,Nview>();
-
         map.put(VIEW_TYPE_TODAY,Nview.VIEW_TYPE_TODAY);
         map.put(VIEW_TYPE_FUTURE_DAY,Nview.VIEW_TYPE_FUTURE_DAY);
-
-
-    // Map<int, NviewToday> processors = new HashMap<>();
-    // processors.add(VIEW_TYPE_TODAY, new NviewToday());
-    // processors.add(VIEW_TYPE_FUTURE_DAY, new NviewFuture());
-
 
     // Flag to determine if we want to use a separate view for "today".
     private boolean mUseTodayLayout = true;
 
 
 	public enum Nview extends ViewChange{
-
 		VIEW_TYPE_TODAY {
 			@Override
 			public int getLayoutId()
 			{return R.layout.list_item_forecast_today;}
 
 		},
-
 		VIEW_TYPE_FUTURE_DAY {
 			@Override
 			public int getLayoutId()
 			{return R.layout.list_item_forecast;}
 		};
-
 		public abstract int getLayoutId();
 	}
 
-
 	public enum Bview {
-
 		VIEW_TYPE_TODAY {
 			@Override
 			public void setLayoutView()
 			{viewHolder.iconView.setImageResource(Utility.getArtResourceForWeatherCondition(
                         cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID)));}
-
 		},
-
 		VIEW_TYPE_FUTURE_DAY {
 			@Override
 			public void setLayoutView()
 			{   viewHolder.iconView.setImageResource(Utility.getIconResourceForWeatherCondition(
                         cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID)));}
 		};
-
 		public abstract void setLayoutView();
 	}
 
@@ -112,7 +97,6 @@ public class ForecastAdapter extends CursorAdapter {
         
         int viewType = getItemViewType(cursor.getPosition());
 
-       
         Nview nview=map.get(viewType);
         
         int layoutId = nview.getLayoutId();
