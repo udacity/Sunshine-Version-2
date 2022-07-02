@@ -1,3 +1,10 @@
+# Archival Note
+We are archiving this repository because we do not want learners to push personal development to the current repository. If you have any issues or suggestions to make, feel free to:
+- Utilize the https://knowledge.udacity.com/ forum to seek help on content-specific issues.
+- Submit a support ticket along with the link to your forked repository if (learners are) blocked for other reasons. Here are the links for the [retail consumers](https://udacity.zendesk.com/hc/en-us/requests/new) and [enterprise learners](https://udacityenterprise.zendesk.com/hc/en-us/requests/new?ticket_form_id=360000279131). 
+
+
+
 Sunshine
 ========
 
@@ -7,10 +14,22 @@ Take the course to find out how to build this app a step at a time, and eventual
 
 This is the second version of the Sunshine code. The repository has been updated on:
 
+* **October 18th, 2015** - Updated to support use of the openweathermap.org API key.
 * **February 13th, 2015** - Major update
 * February 25, 2015 - Minor bug fixes
 * March 4th, 2015 - Minor bug fixes
 
+### Open Weather Map API Key is required.
+
+In order for the Sunshine app to function properly as of October 18th, 2015 an API key for openweathermap.org must be included with the build.
+
+We recommend that each student obtain a key via the following [instructions](http://openweathermap.org/appid#use), and include the unique key for the build by adding the following line to [USER_HOME]/.gradle/gradle.properties
+
+`MyOpenWeatherMapApiKey="<UNIQUE_API_KEY">`
+
+For help migrating an existing repo (fork or clone prior to 10/18/15), please check out this [guide.](https://docs.google.com/document/d/1e8LXahedBlCW1_dp_FyvQ3ugUAwUBJDuJCoKf3tgNVs/pub?embedded=true) 
+
+========
 For the original version, please go [here](https://github.com/udacity/Sunshine).
 
 A changelog for the course can be found [here](https://docs.google.com/a/knowlabs.com/document/d/193xJb_OpcNCqgquMhxPrMh05IEYFXQqt0S6-6YK8gBw/pub).
