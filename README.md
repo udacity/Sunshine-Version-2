@@ -18,6 +18,7 @@ This is the second version of the Sunshine code. The repository has been updated
 * **February 13th, 2015** - Major update
 * February 25, 2015 - Minor bug fixes
 * March 4th, 2015 - Minor bug fixes
+* Nov 11, 2015 - no change
 
 ### Open Weather Map API Key is required.
 
@@ -27,7 +28,7 @@ We recommend that each student obtain a key via the following [instructions](htt
 
 `MyOpenWeatherMapApiKey="<UNIQUE_API_KEY">`
 
-For help migrating an existing repo (fork or clone prior to 10/18/15), please check out this [guide.](https://docs.google.com/document/d/1e8LXahedBlCW1_dp_FyvQ3ugUAwUBJDuJCoKf3tgNVs/pub?embedded=true) 
+For help migrating an existing repo (fork or clone prior to 10/18/15), please check out this [guide.](https://docs.google.com/document/d/1e8LXahedBlCW1_dp_FyvQ3ugUAwUBJDuJCoKf3tgNVs/pub?embedded=true)
 
 ========
 For the original version, please go [here](https://github.com/udacity/Sunshine).
