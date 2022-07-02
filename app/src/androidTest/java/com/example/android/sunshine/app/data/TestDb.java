@@ -161,9 +161,9 @@ public class TestDb extends AndroidTestCase {
         );
 
         // Move the cursor to the first valid database row and check to see if we have any rows
-        assertTrue( "Error: No Records returned from location query", weatherCursor.moveToFirst() );
+        assertTrue( "Error: No Records returned from weather query", weatherCursor.moveToFirst() );
 
-        // Fifth Step: Validate the location Query
+        // Fifth Step: Validate the weather Query
         TestUtilities.validateCurrentRecord("testInsertReadDb weatherEntry failed to validate",
                 weatherCursor, weatherValues);
 
