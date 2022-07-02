@@ -36,23 +36,29 @@ import android.widget.TextView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.data.WeatherContract.WeatherEntry;
+import com.example.android.sunshine.app.util.ImageUtil;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final String LOG_TAG = DetailFragment.class.getSimpleName();
+    // These indices are tied to DETAIL_COLUMNS.  If DETAIL_COLUMNS changes, these
+    // must change.
+    public static final int COL_WEATHER_ID = 0;
+    public static final int COL_WEATHER_DATE = 1;
+    public static final int COL_WEATHER_DESC = 2;
+    public static final int COL_WEATHER_MAX_TEMP = 3;
+    public static final int COL_WEATHER_MIN_TEMP = 4;
+    public static final int COL_WEATHER_HUMIDITY = 5;
+    public static final int COL_WEATHER_PRESSURE = 6;
+    public static final int COL_WEATHER_WIND_SPEED = 7;
+    public static final int COL_WEATHER_DEGREES = 8;
+    public static final int COL_WEATHER_CONDITION_ID = 9;
     static final String DETAIL_URI = "URI";
-
+    private static final String LOG_TAG = DetailFragment.class.getSimpleName();
     private static final String FORECAST_SHARE_HASHTAG = " #SunshineApp";
-
-    private ShareActionProvider mShareActionProvider;
-    private String mForecast;
-    private Uri mUri;
-
     private static final int DETAIL_LOADER = 0;
-
     private static final String[] DETAIL_COLUMNS = {
             WeatherEntry.TABLE_NAME + "." + WeatherEntry._ID,
             WeatherEntry.COLUMN_DATE,
@@ -68,20 +74,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             // weather data, even though they're stored in two different tables.
             WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING
     };
-
-    // These indices are tied to DETAIL_COLUMNS.  If DETAIL_COLUMNS changes, these
-    // must change.
-    public static final int COL_WEATHER_ID = 0;
-    public static final int COL_WEATHER_DATE = 1;
-    public static final int COL_WEATHER_DESC = 2;
-    public static final int COL_WEATHER_MAX_TEMP = 3;
-    public static final int COL_WEATHER_MIN_TEMP = 4;
-    public static final int COL_WEATHER_HUMIDITY = 5;
-    public static final int COL_WEATHER_PRESSURE = 6;
-    public static final int COL_WEATHER_WIND_SPEED = 7;
-    public static final int COL_WEATHER_DEGREES = 8;
-    public static final int COL_WEATHER_CONDITION_ID = 9;
-
+    private ShareActionProvider mShareActionProvider;
+    private String mForecast;
+    private Uri mUri;
     private ImageView mIconView;
     private TextView mFriendlyDateView;
     private TextView mDateView;
@@ -184,7 +179,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             int weatherId = data.getInt(COL_WEATHER_CONDITION_ID);
 
             // Use weather art image
-            mIconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
+            ImageUtil.loadImage(getActivity(), weatherId, mIconView);
 
             // Read date from cursor and update views for day of week and date
             long date = data.getLong(COL_WEATHER_DATE);

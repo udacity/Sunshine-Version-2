@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditTextPreference
-        android:title="@string/pref_location_label"
-        android:key="@string/pref_location_key"
+    <com.example.android.sunshine.app.widget.LocationEditTextPreference
         android:defaultValue="@string/pref_location_default"
         android:inputType="text"
-        android:singleLine="true" />
+        android:key="@string/pref_location_key"
+        android:singleLine="true"
+        android:title="@string/pref_location_label"
+        app:minLength="3" />
 
     <ListPreference
-        android:title="@string/pref_units_label"
-        android:key="@string/pref_units_key"
         android:defaultValue="@string/pref_units_metric"
+        android:entries="@array/pref_units_options"
         android:entryValues="@array/pref_units_values"
-        android:entries="@array/pref_units_options" />
+        android:key="@string/pref_units_key"
+        android:title="@string/pref_units_label" />
+    <ListPreference
+        android:defaultValue="@string/pref_art_pack_sunshine"
+        android:entries="@array/pref_art_pack_options"
+        android:entryValues="@array/pref_art_pack_values"
+        android:key="@string/pref_art_pack_key"
+        android:title="@string/pref_art_pack_label" />
 
     <CheckBoxPreference
-        android:title="@string/pref_enable_notifications_label"
+        android:defaultValue="@string/pref_enable_notifications_default"
         android:key="@string/pref_enable_notifications_key"
         android:summaryOff="@string/pref_enable_notifications_false"
         android:summaryOn="@string/pref_enable_notifications_true"
-        android:defaultValue="@string/pref_enable_notifications_default" />
+        android:title="@string/pref_enable_notifications_label" />
 
 </PreferenceScreen>
