@@ -201,8 +201,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             mIconView.setContentDescription(description);
 
             // Read high temperature from cursor and update view
-            boolean isMetric = Utility.isMetric(getActivity());
-
             double high = data.getDouble(COL_WEATHER_MAX_TEMP);
             String highString = Utility.formatTemperature(getActivity(), high);
             mHighTempView.setText(highString);

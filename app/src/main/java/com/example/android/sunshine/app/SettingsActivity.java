@@ -22,11 +22,12 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings.
- * <p>
+ * <p/>
  * See <a href="http://developer.android.com/design/patterns/settings.html">
  * Android Design: Settings</a> for design guidelines and the <a
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
@@ -35,9 +36,21 @@ import android.preference.PreferenceManager;
 public class SettingsActivity extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
 
+    private SettingsFragment mSettingsFragment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            mSettingsFragment = new SettingsFragment();
+            getFragmentManager().beginTransaction().
+                    replace(android.R.id.content, mSettingsFragment).commit();
+        } else {
+            initPreference();
+        }
+    }
+
+    private void initPreference() {
         // Add 'general' preferences, defined in the XML file
         addPreferencesFromResource(R.xml.pref_general);
 
@@ -45,6 +58,24 @@ public class SettingsActivity extends PreferenceActivity
         // updated when the preference changes.
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
+    }
+
+    @Override
+    public void addPreferencesFromResource(int preferencesResId) {
+        if (mSettingsFragment != null) {
+            mSettingsFragment.addPreferencesFromResource(preferencesResId);
+        } else {
+            super.addPreferencesFromResource(preferencesResId);
+        }
+    }
+
+    @Override
+    public Preference findPreference(CharSequence key) {
+        if (mSettingsFragment != null) {
+            return mSettingsFragment.findPreference(key);
+        } else {
+            return super.findPreference(key);
+        }
     }
 
     /**
@@ -88,4 +119,14 @@ public class SettingsActivity extends PreferenceActivity
     public Intent getParentActivityIntent() {
         return super.getParentActivityIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class SettingsFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            ((SettingsActivity) getActivity()).initPreference();
+        }
+    }
+
 }
