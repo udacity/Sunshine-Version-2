@@ -18,9 +18,12 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', MyOpenWeatherMapApiKey
-    }
+        it.buildConfigField "String", "OPEN_WEATHER_MAP_API_KEY", MyOpenWeatherMapApiKey
+    } //While copying the API use "\"YourAPI\"" for ex : "\"sample_test_API\""
+
 }
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
