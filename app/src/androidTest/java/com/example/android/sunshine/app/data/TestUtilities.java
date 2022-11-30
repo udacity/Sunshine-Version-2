@@ -32,6 +32,7 @@ public class TestUtilities extends AndroidTestCase {
 
     static void validateCurrentRecord(String error, Cursor valueCursor, ContentValues expectedValues) {
         Set<Map.Entry<String, Object>> valueSet = expectedValues.valueSet();
+        valueCursor.moveToFirst();
         for (Map.Entry<String, Object> entry : valueSet) {
             String columnName = entry.getKey();
             int idx = valueCursor.getColumnIndex(columnName);
